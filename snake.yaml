@@ -1,1 +1,21 @@
+name: Generate Snake
 
+on:
+  schedule: 
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Platane/snk@v3
+        with:
+          github_user_name: danchege
+          outputs: |
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+      - name: Push
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "generated"
+          add: "dist"
